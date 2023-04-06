@@ -110,25 +110,25 @@ WSGI_APPLICATION = 'ecomerence.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get("NAME"),
+        "USER": os.environ.get("USERdb"),
+        "PASSWORD": os.environ.get("PASSWORD"),
+        "HOST": os.environ.get("HOST"),
+        "PORT": "5432",
+    },
+}
+
+
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'rehman',
-#         'USER': 'postgres',
-#         'PASSWORD': 'admin',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
@@ -177,14 +177,14 @@ if s3:
     # s3 static settings
     STATIC_LOCATION = "static"
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
-    STATICFILES_STORAGE = "project.storage_backends.StaticStorage"
+    STATICFILES_STORAGE = "ecomerence.storage_backends.StaticStorage"
     # s3 public media settings
     PUBLIC_MEDIA_LOCATION = "media"
     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
-    DEFAULT_FILE_STORAGE = "project.storage_backends.PublicMediaStorage"
+    DEFAULT_FILE_STORAGE = "ecomerence.storage_backends.PublicMediaStorage"
     # s3 private media settings
     PRIVATE_MEDIA_LOCATION = "private"
-    PRIVATE_FILE_STORAGE = "project.storage_backends.PrivateMediaStorage"
+    PRIVATE_FILE_STORAGE = "ecomerence.storage_backends.PrivateMediaStorage"
 else:
     STATIC_URL = "/static/"
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
